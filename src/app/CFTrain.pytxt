@@ -1,0 +1,54 @@
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import make_classification
+import numpy as np
+import matplotlib.pyplot as plt
+
+X, y = make_classification(n_samples=1000, n_features=4,
+                           n_informative=2, n_redundant=0,
+                           random_state=0, shuffle=False)
+
+print 'X', X
+print 'y', y
+# plt.plot(X, y)
+# plt.show()
+# exit()
+
+clf = RandomForestClassifier(n_estimators=2, 
+							 criterion='entropy', 
+							 max_features='sqrt',
+							 max_depth=50, 
+							 min_samples_leaf=8,
+							 bootstrap=True,
+							 oob_score=True, 
+							 n_jobs=-1,
+							 class_weight='balanced',
+							 random_state=None)
+clf.fit(X, y)
+
+# print 'clf.estimators_', clf.estimators_
+print 'clf.classes_ ', clf.classes_ 
+print 'clf.n_classes_' , clf.n_classes_
+print 'clf.n_features_ ', clf.n_features_ 
+print 'clf.n_outputs_ ', clf.n_outputs_ 
+print 'clf.feature_importances_ ', clf.feature_importances_ 
+print 'clf.oob_score_', clf.oob_score_
+print 'clf.oob_decision_function_' , clf.oob_decision_function_ #????
+
+print 
+print 
+
+
+print 'clf.get_params()', clf.get_params()
+print 'clf.decision_path([[0, 0, 0, 0]])', clf.decision_path([[0, 0, 0, 0]]) #????
+print 'clf.apply([[0, 0, 0, 0]])', clf.apply([[0, 0, 0, 0]]) #Apply trees in the forest to inpt, return leaf indices of each tree.
+
+indicator, n_nodes_ptr = clf.decision_path([[0, 0, 0, 0]])
+print 'indicator', indicator
+print 'n_nodes_ptr', n_nodes_ptr
+
+print 'clf.predict_proba([[0, 0, 0, 0]])', clf.predict_proba([[0, 0, 0, 0]])
+print 'clf.predict_log_proba([[0, 0, 0, 0]])', clf.predict_log_proba([[0, 0, 0, 0]]) #????
+print 'clf.predict([[0, 0, 0, 0]])', clf.predict([[0, 0, 0, 0]])
+
+
